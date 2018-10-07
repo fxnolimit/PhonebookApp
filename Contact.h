@@ -1,10 +1,7 @@
 /*
  * Author name: Francois Mukaba
  * Created on: Oct 6, 2018
- * Course: CS 300
- *
- * 									Assignment 1/Contact.h
- * */
+ */
 
 #ifndef CONTACT_H_
 #define CONTACT_H_
