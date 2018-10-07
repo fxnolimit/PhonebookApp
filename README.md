@@ -1,7 +1,9 @@
 You	are	asked	to	write	a	simple	C++	phonebook	application	program.	Here	are	the	requirements	for	the	application.
 
   • read	the	contact	information	from	a	given	input	file	(phonebook.txt)	into	a	dynamically	created	array	of	Contact	objects.	Each	line	of	the	input	line	includes	name	and	phone	information	of	a	contact.	
-  • Allow	to	perform	operations	on	array	of	data	such	as	search	for	a	person,	create	a	new	contact	or	delete	an	existing	contact		
+  
+  • Allow	to	perform	operations	on	array	of	data	such	as	search	for	a	person,	create	a	new	contact	or	delete	an	existing	contact
+  
   • Make	sure	you	implemented	at	least	one	operator	overloading	and	friend	function	in	your	solution.	 	
 A	sample	run:	 	 
 
