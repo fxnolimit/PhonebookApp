@@ -1,7 +1,10 @@
 /*
  * Author name: Francois Mukaba
  * Created on: Oct 6, 2018
- */
+ * Course: CS 300
+ *
+ * 									Assignment 1/ Phonebook.cpp
+ * */
 #include "Phonebook.h"
 #include "Contact.h"
 #include <fstream>
@@ -180,19 +183,17 @@ void Phonebook::application() {
 			string name;
 			int check;
 			cout << "Enter Name: ";
-			cin.get();
-			getline(cin, name);
+			cin >> name;
 			check = this->remove(name);
 			if (check == 1) {
 				cout << "Contact deleted successfully !" << endl;
 			} else {
-				cout << "Contact not found" << endl;
+				cout << "Contact not found in Phonebook !" << endl;
 			}
 		}
 
 		// QUIT : stop the application
 		else if (input == "Q") {
-			cout << "QQQ" << endl;
 			break;
 		}
 
