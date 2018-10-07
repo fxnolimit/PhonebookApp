@@ -5,7 +5,9 @@ You	are	asked	to	write	a	simple	C++	phonebook	application	program.	Here	are	the	
   • Make	sure	you	implemented	at	least	one	operator	overloading	and	friend	function	in	your	solution.	 	
 A	sample	run:	 	 
 
-***MY	PHONEBOOK	APPLICATION***	Please	choose	an	operation:	
+***MY	PHONEBOOK	APPLICATION***	
+
+Please	choose	an	operation:	
 A(Add)	|	S	(Search)	|	D(Delete)	|L(List)	|Q(Quit):	A	
 
 Enter	name:	MARY	SMITH		
