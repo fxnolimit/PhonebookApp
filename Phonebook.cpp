@@ -5,6 +5,7 @@
  *
  * 									Assignment 1/ Phonebook.cpp
  * */
+
 #include "Phonebook.h"
 #include "Contact.h"
 #include <fstream>
@@ -19,9 +20,9 @@ Phonebook::Phonebook() {
 //create and initialize a phonebook with data from which name is the parameter
 Phonebook::Phonebook(string fileName) {
 	storage = new Contact[incrementor];
-	ifstream file(fileName); // input the file in a ifstream object
+	ifstream file(fileName); // store the file in a ifstream object
 	string line;
-	while (getline(file, line)) { //goes line by line in the file
+	while (getline(file, line)) { //reads line by line in the file
 		string firstName;
 		string lastName;
 		string temp;
@@ -36,16 +37,19 @@ Phonebook::Phonebook(string fileName) {
 		add(contact);
 	}
 }
+long Phonebook::getLength() {
+	return this->size;
+}
 //checks the capacity of the array and can copy it into a bigger array if necessary
 void Phonebook::checkCapacity() {
 	if (size == (rebuild * incrementor)) {
-		Contact * copyStorage = storage;
-		delete storage;
 		rebuild++;
-		storage = new Contact[rebuild * incrementor];
+		Contact * copyStorage = new Contact[rebuild * incrementor];
 		for (unsigned int i = 0; i < size; i++) {
-			storage[i] = copyStorage[i];
+			copyStorage[i] = storage[i];
 		}
+		delete[] storage;
+		storage = copyStorage;
 	}
 }
 //checks if there is contact with a certain name in storage to avoid duplicates
@@ -80,7 +84,6 @@ void Phonebook::list() {
 //search for a particular contact
 //return it's phone number
 long Phonebook::search(string name) {
-
 	for (unsigned int i = 0; i < size; i++) {
 		if (storage[i].getName() == name) {
 			return storage[i].getNumber();
@@ -92,25 +95,22 @@ long Phonebook::search(string name) {
 //return 1 if successful
 int Phonebook::remove(string name) {
 	if (contains(name) == true) {
-		Contact * copyStorage = storage;
-		delete storage;
-		storage = new Contact[size - 1];
-		int j = 0;
-		for (unsigned int i = j; i < size - 1; i++) {
-			if (copyStorage[j].getName() == name) {
-				j++; // copyStorage advance
-				i--; // storage points at the same address
-			} else {
-				storage[i] = copyStorage[j];
-				j++;
+		unsigned int targetIndex = 0;
+		for (unsigned int i = 0; i < size; i++) {
+			if (storage[i].getName() == name) {
+				targetIndex = i;
 			}
+		}
+		for (unsigned int i = targetIndex; i < size; i++) {
+			Contact temp = storage[i];
+			storage[i] = storage[i + 1];
+			storage[i + 1] = temp;
 		}
 		size--;
 		return 1;
 	} else {
 		return -1;
 	}
-
 }
 //Forces user to enter inputs of type long
 long Phonebook::forceInputType_long() {
@@ -133,7 +133,7 @@ long Phonebook::forceInputType_long() {
 // Method to Launch the Phonebook Application
 void Phonebook::application() {
 	//Prompt
-	cout << "                  Phonebook Application started..." << endl;
+	cout << "                   Phonebook Application started..." << endl;
 	cout << "Please enter: " << endl;
 	cout << "	- 'A' to create a contact " << endl;
 	cout << "	- 'S' to search a contact" << endl;
@@ -143,19 +143,21 @@ void Phonebook::application() {
 
 	string input = "";
 	while (input != "Q") {  //Quit application if input equals Q
-
 		cin >> input;
 
-		//ADD: add into storage contacts that user inputs
-		if (input == "A") {
+		//DELETE: delete contacts from storage
+		if (input == "D") {
 			string name;
-			cout << "Name: ";
+			int check;
+			cout << "Enter Name: ";
 			cin.get();
 			getline(cin, name);
-			cout << "Phone Number: ";
-			long number = this->forceInputType_long();
-			this->add(name, number);
-			cout << "Contact added successfully !" << endl;
+			check = this->remove(name); // the remove method has a bug...put a bunch of cout in it to debug the issue
+			if (check == 1) {
+				cout << "Contact deleted successfully !" << endl;
+			} else {
+				cout << "Contact not found in Phonebook !" << endl;
+			}
 		}
 
 		// SEARCH: search contacts in the storage and returns their number
@@ -170,34 +172,35 @@ void Phonebook::application() {
 				cout << "Contact not found in phonebook !" << endl;
 			} else {
 				cout << "Phone Number: ";
-				cout << number;
+				cout << number << endl;
 			}
+		}
+
+		//ADD: add into storage contacts that user inputs
+		else if (input == "A") {
+			string name;
+			cout << "Enter Name: ";
+			cin.get();
+			getline(cin, name);
+			cout << "Phone Number: ";
+			long number = this->forceInputType_long();
+			this->add(name, number);
+			cout << "Contact added successfully !" << endl;
+		}
+
+		//QUIT : stop the application
+		else if (input == "Q") {
+			continue;
 		}
 
 		//LIST: list all contacts in storage
 		else if (input == "L") {
+			cout << "f" << endl;
 			this->list();
-		}
-		//DELETE: delete contacts from storage
-		else if (input == "D") {
-			string name;
-			int check;
-			cout << "Enter Name: ";
-			cin >> name;
-			check = this->remove(name);
-			if (check == 1) {
-				cout << "Contact deleted successfully !" << endl;
-			} else {
-				cout << "Contact not found in Phonebook !" << endl;
-			}
+			cout << "f" << endl;
 		}
 
-		// QUIT : stop the application
-		else if (input == "Q") {
-			break;
-		}
-
-		// Prompt for wrong input
+		//Prompt for wrong input
 		else {
 			cout << "Invalid input, try again..." << endl;
 		}
