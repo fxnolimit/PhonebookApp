@@ -25,7 +25,6 @@ public:
 	Contact(string name, long phoneNum) {
 		fullName = name;
 		number = phoneNum;
-
 	}
 	//rename a contact
 	void rename(string newName) {
