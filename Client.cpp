@@ -14,7 +14,8 @@ using namespace std;
 
 int main() {
 	//Initialize the Phonebook
-	Phonebook test("Phonebook.txt");
+	Phonebook directory("Phonebook.txt");
 	//Run the application
-	test.application();
+	directory.application();
+	return 1;
 }
