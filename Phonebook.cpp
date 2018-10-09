@@ -195,9 +195,7 @@ void Phonebook::application() {
 
 		//LIST: list all contacts in storage
 		else if (input == "L") {
-			cout << "f" << endl;
 			this->list();
-			cout << "f" << endl;
 		}
 
 		//Prompt for wrong input
