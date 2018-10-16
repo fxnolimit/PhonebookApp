@@ -21,7 +21,6 @@ public:
 	Phonebook(string);
 	long getLength();
 	void checkCapacity();
-	bool contains(string);
 	void add(string, long);
 	void add(Contact);
 	int remove(string);
