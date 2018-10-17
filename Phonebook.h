@@ -12,7 +12,7 @@
 
 class Phonebook {
 public:
-	unsigned const int incrementor = 200000; // to keep consistent memory allocation everytime the array is rebuilt
+	unsigned const int incrementor = 100000; // to keep consistent memory allocation everytime the array is rebuilt
 	unsigned int size = 0; // number of elements in the array
 	unsigned int rebuild = 1; // number of time array has been built
 	Contact *storage; // array to store the contacts
@@ -21,6 +21,7 @@ public:
 	Phonebook(string);
 	long getLength();
 	void checkCapacity();
+	bool contains(string);
 	void add(string, long);
 	void add(Contact);
 	int remove(string);
@@ -28,7 +29,6 @@ public:
 	void list();
 	long forceInputType_long();
 	void application();
-
 };
 
 #endif
