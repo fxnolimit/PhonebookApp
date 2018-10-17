@@ -14,7 +14,7 @@ using namespace std;
 class Contact {
 private:
 	string fullName; //contact's name
-	long number; //contact's phone number
+	long number; 	//contact's phone number
 public:
 	//default constructor
 	Contact() {
