@@ -13,10 +13,12 @@
 #include <iostream>
 
 using namespace std;
+
 //create a Phonebook storage of capacity equal to incrementor
 Phonebook::Phonebook() {
 	storage = new Contact[incrementor];
 }
+
 //create and initialize a phonebook with data from which name is the parameter
 Phonebook::Phonebook(string fileName) {
 	storage = new Contact[incrementor];
@@ -37,9 +39,11 @@ Phonebook::Phonebook(string fileName) {
 		add(contact);
 	}
 }
+
 long Phonebook::getLength() {
 	return this->size;
 }
+
 //checks the capacity of the array and can copy it into a bigger array if necessary
 void Phonebook::checkCapacity() {
 	if (size == (rebuild * incrementor)) {
@@ -52,35 +56,27 @@ void Phonebook::checkCapacity() {
 		storage = copyStorage;
 	}
 }
-//checks if there is contact with a certain name in storage to avoid duplicates
-//returns true if found
-bool Phonebook::contains(string name) {
-	for (unsigned int i = 0; i < size; i++) {
-		if (storage[i].getName() == name) {
-			return true;
-		}
-	}
-	return false;
-}
+
 //add new contact
 void Phonebook::add(string name, long number) {
 	Contact temp(name, number);
 	add(temp);
 }
+
 //overload add(string,int)
 void Phonebook::add(Contact name) {
-	if (!contains(name.getName())) {
-		checkCapacity();
-		storage[size] = name;
-		size++;
-	}
+	checkCapacity();
+	storage[size] = name;
+	size++;
 }
+
 //prints a list of all contacts in storage
 void Phonebook::list() {
 	for (unsigned int i = 0; i < size; i++) {
 		cout << storage[i] << endl;
 	}
 }
+
 //search for a particular contact
 //return it's phone number
 long Phonebook::search(string name) {
@@ -91,27 +87,27 @@ long Phonebook::search(string name) {
 	}
 	return -987654321;
 }
+
 //remove a contact
 //return 1 if successful
 int Phonebook::remove(string name) {
-	if (contains(name) == true) {
-		unsigned int targetIndex = 0;
-		for (unsigned int i = 0; i < size; i++) {
-			if (storage[i].getName() == name) {
-				targetIndex = i;
-			}
+	int flag = -1;
+	unsigned int targetIndex = 0;
+	for (unsigned int i = 0; i < size; i++) {
+		if (storage[i].getName() == name) {
+			targetIndex = i;
+			flag = 1;
 		}
-		for (unsigned int i = targetIndex; i < size; i++) {
-			Contact temp = storage[i];
-			storage[i] = storage[i + 1];
-			storage[i + 1] = temp;
-		}
-		size--;
-		return 1;
-	} else {
-		return -1;
 	}
+	for (unsigned int i = targetIndex; i < size; i++) {
+		Contact temp = storage[i];
+		storage[i] = storage[i + 1];
+		storage[i + 1] = temp;
+	}
+	size--;
+	return flag;
 }
+
 //Forces user to enter inputs of type long
 long Phonebook::forceInputType_long() {
 	long number = 0;
@@ -129,3 +125,4 @@ long Phonebook::forceInputType_long() {
 	}
 	return number;
 }
+
