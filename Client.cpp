@@ -12,14 +12,6 @@
 
 using namespace std;
 
-int main() {
-	//Initialize the Phonebook
-	Phonebook directory("Phonebook.txt");
-	//Run the application
-	directory.application();
-	return 1;
-}
-// Method to Launch the Phonebook Application
 void application(Phonebook directory) {
 	//Prompt
 	cout << "                   Phonebook Application started..." << endl;
@@ -92,4 +84,12 @@ void application(Phonebook directory) {
 			cout << "Invalid input, try again..." << endl;
 		}
 	}
+}
+
+int main() {
+	//Initialize the Phonebook
+	Phonebook directory("Phonebook.txt");
+	//Run the application
+	application(directory);
+	return 1;
 }
